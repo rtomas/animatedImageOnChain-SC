@@ -2,6 +2,8 @@
 pragma solidity ^0.8.9;
 
 contract AnimatedGif {
+    error ErrorOnlyOwner();
+
     struct Pixel {
         uint8 r;
         uint8 g;
@@ -9,10 +11,13 @@ contract AnimatedGif {
     }
     uint8 public constant MAX_XY = 32;
     uint8 public constant MAX_FRAMES = 50;
+    address private _owner;
 
     Pixel[MAX_FRAMES][MAX_XY][MAX_XY] public matrix;
 
-    constructor() {}
+    constructor() {
+        _owner = msg.sender;
+    }
 
     // Function to set the color of a pixel at a specific position
     function setPixelColor(
@@ -22,7 +27,7 @@ contract AnimatedGif {
         uint8 r,
         uint8 g,
         uint8 b
-    ) public {
+    ) public onlyOwner {
         require(x < MAX_XY && y < MAX_XY && z < MAX_FRAMES, "Invalid position");
         matrix[z][x][y] = Pixel(r, g, b);
     }
@@ -68,7 +73,7 @@ contract AnimatedGif {
         uint8[] memory rArray,
         uint8[] memory gArray,
         uint8[] memory bArray
-    ) public {
+    ) public onlyOwner {
         require(z < MAX_FRAMES, "Invalid layer");
 
         uint256 numPixels = xArray.length;
@@ -90,5 +95,24 @@ contract AnimatedGif {
             require(x < MAX_XY && y < MAX_XY, "Invalid position");
             matrix[z][x][y] = Pixel(r, g, b);
         }
+    }
+
+    /**
+     * @dev Throws if the sender is not the minter.
+     */
+    function _checkOwner() private view {
+        if (owner() != msg.sender) revert ErrorOnlyOwner();
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
     }
 }
