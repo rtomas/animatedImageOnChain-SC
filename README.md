@@ -5,7 +5,9 @@ Doing some test to view how an animated an image that can be stored onchain and 
 32x32 pixels, 256 colors, 50 frames
 
 The frontend proyect is here:
+
 https://github.com/rtomas/animatedImageOnChain-UI
+
 https://animated-on-chain.vercel.app/
 
 Compile, test and deploy with:
