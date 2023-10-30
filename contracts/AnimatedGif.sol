@@ -12,6 +12,7 @@ contract AnimatedGif {
     uint8 public constant MAX_XY = 32;
     uint8 public constant MAX_FRAMES = 50;
     address private _owner;
+    uint16 public interval = 1000;
 
     Pixel[MAX_FRAMES][MAX_XY][MAX_XY] public matrix;
 
@@ -43,6 +44,11 @@ contract AnimatedGif {
         return (pixel.r, pixel.g, pixel.b);
     }
 
+    // function get the interval value in between frames
+    function getInterval() public view returns (uint16) {
+        return interval;
+    }
+
     // Function to get the color matrix for a specific z-layer
     function getMatrixForLayer(
         uint8 z
@@ -52,8 +58,8 @@ contract AnimatedGif {
         uint8[32 * 32 * 3] memory colors;
         uint256 idx = 0;
 
-        for (uint8 x = 0; x < MAX_XY; x++) {
-            for (uint8 y = 0; y < MAX_XY; y++) {
+        for (uint8 y = 0; y < MAX_XY; y++) {
+            for (uint8 x = 0; x < MAX_XY; x++) {
                 Pixel memory pixel = matrix[z][x][y];
                 colors[idx] = pixel.r;
                 colors[idx + 1] = pixel.g;
