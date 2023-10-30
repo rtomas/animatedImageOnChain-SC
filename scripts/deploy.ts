@@ -6,8 +6,7 @@ async function main() {
     const gif = await ethers.deployContract("AnimatedGif", ownerAddress);
 
     await gif.waitForDeployment();
-
-    console.log(`owner: ${ownerAddress} | Address: ${gif.getAddress()} deployed to ${gif.target}`);
+    console.log(`owner: ${ownerAddress.address} | deployed to ${gif.target}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
