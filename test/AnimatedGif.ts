@@ -49,14 +49,14 @@ describe("AnimatedGIF", function () {
 
             let posY = 0;
             let layer = 0;
+            const r = [];
+            const g = [];
+            const b = [];
+            const x = [];
+            const y = [];
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
                 const rgb = line.split("|");
-                const r = [];
-                const g = [];
-                const b = [];
-                const x = [];
-                const y = [];
 
                 posY++;
 
@@ -76,8 +76,8 @@ describe("AnimatedGIF", function () {
                         b.push(parseInt(rgb[num].substring(6, 8), 16));
                     }
                 }
-                await gif.setPixelColors(layer, x, y, r, g, b);
             }
+            await gif.setPixelColors(layer, x, y, r, g, b);
         });
 
         it("Upload one complete layer", async function () {
