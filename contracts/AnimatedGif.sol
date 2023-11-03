@@ -13,6 +13,7 @@ contract AnimatedGif {
     uint8 public constant MAX_FRAMES = 50;
     address private _owner;
     uint16 public interval = 1000;
+    uint8 public frames = 0;
 
     Pixel[MAX_FRAMES][MAX_XY][MAX_XY] public matrix;
 
@@ -47,6 +48,21 @@ contract AnimatedGif {
     // function get the interval value in between frames
     function getInterval() public view returns (uint16) {
         return interval;
+    }
+
+    // function set the interval value in between frames
+    function setInterval(uint8 _interval) public onlyOwner {
+        interval = _interval;
+    }
+
+    // function get the amount of frames
+    function getFrames() public view returns (uint16) {
+        return frames;
+    }
+
+    // function set the amount of frames
+    function setFrame(uint8 frame) public onlyOwner {
+        frames = frame;
     }
 
     // Function to get the color matrix for a specific z-layer
