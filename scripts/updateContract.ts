@@ -7,16 +7,16 @@ async function main() {
 
     // send the colors to the contract calling setPixelColors
     //const address = "0x13FB0eafB42243998933E24b27fD7e4af2D9e107";
-    const address = "0x4226E81E6f94890465052FB750671C3cE52302a7";
+    const address = "0x1e2850bc23708D04944B1a35F75ACC920c07b72b";
     const gif = await ethers.getContractAt("AnimatedGif", address, ownerAddress);
 
     // load the colors from a txt / json
     //get the data from txt/sunset.txt
     const fs = require("fs");
-    const data = fs.readFileSync("./scripts/txt/sunset.txt", "utf8");
+    const data = fs.readFileSync("./scripts/txt/sunsetDemo2.txt", "utf8");
     const lines = data.split("\n");
     let posY = 0;
-    let layer = 0;
+    let layer = 3;
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         const rgb = line.split("|");
@@ -45,8 +45,8 @@ async function main() {
             }
         }
 
-        if (layer == 6) await gif.setPixelColors(layer - 1, x, y, r, g, b);
-        console.log(layer);
+       await gif.setPixelColors(layer, x, y, r, g, b);
+       console.log("layer", layer - 1,x, y, r, g, b);
     }
 }
 

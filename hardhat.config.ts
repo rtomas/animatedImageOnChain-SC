@@ -14,10 +14,10 @@ const config: HardhatUserConfig = {
         localhost: {
             timeout: 100_000,
         },
-        mumbai: {
+        amoy: {
             url: MUMBAI_RPC_URL,
             accounts: [PRIVATE_KEY_OWNER],
-            chainId: 80001,
+            chainId: 80002,
         },
     },
     etherscan: {
